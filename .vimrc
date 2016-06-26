@@ -27,6 +27,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-sensible'
+Plugin 'gabrielelana/vim-markdown'
+Plugin 'vim-scripts/dbext.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -47,7 +49,7 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 set foldmethod=indent
-" See docstrings 
+" See docstrings
 " in folded code
 let g:SimpylFold_docstring_preview=1
 
@@ -66,6 +68,8 @@ au BufNewFile,BufRead *.js,*css setlocal
      \ tabstop=2
      \ softtabstop=2
      \ shiftwidth=2
+     \ expandtab
+
 au BufNewFile,BufRead *go setlocal
 	\ tabstop=4
 	\ softtabstop=0
@@ -81,6 +85,8 @@ set fileencodings=utf-8
 
 " You Complete me Space+G Go-To definition
 let g:ycm_autoclose_preview_window_after_completion=1
+" Disable auto complete by default. Trigger it on Ctrl+Space
+let g:ycm_auto_trigger = 1
 
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -92,9 +98,13 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
+let g:syntastic_go_checkers = ['go', 'golint']
+let g:syntastic_enable_signs = 0
+let g:syntastic_enable_balloons = 0
+let g:syntastic_enable_highlighting = 0
+
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_go_checkers = ['go', 'golint']
 
 " Python settings
 let python_highlight_all=1
