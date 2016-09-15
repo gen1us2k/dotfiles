@@ -15,16 +15,20 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Shougo/deoplete.nvim'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" Plugin 'zchee/deoplete-go'
+Plugin 'nsf/gocode', {'rtp': 'nvim/'}
+Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'Shougo/vimproc'
+Plugin 'Shougo/unite.vim'
+Plugin 'm2mdas/phpcomplete-extended'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-sensible'
 Plugin 'gabrielelana/vim-markdown'
@@ -64,7 +68,7 @@ au BufNewFile,BufRead *.py setlocal
      \ fileformat=unix
 " JS. CSS. HTML
 
-au BufNewFile,BufRead *.js,*css setlocal
+au BufNewFile,BufRead *.js,*css,*.html setlocal
      \ tabstop=2
      \ softtabstop=2
      \ shiftwidth=2
@@ -84,12 +88,11 @@ set fileencoding=utf-8
 set fileencodings=utf-8
 
 " You Complete me Space+G Go-To definition
-let g:ycm_autoclose_preview_window_after_completion=1
+" let g:ycm_autoclose_preview_window_after_completion=1
 " Disable auto complete by default. Trigger it on Ctrl+Space
-let g:ycm_auto_trigger = 1
+" let g:ycm_auto_trigger = 1
 
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
+map <leader>g  :GoDef <CR>
 " Golang settings
 
 let g:go_highlight_functions = 1
@@ -99,33 +102,37 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
 let g:syntastic_go_checkers = ['go', 'golint']
-let g:syntastic_enable_signs = 0
-let g:syntastic_enable_balloons = 0
-let g:syntastic_enable_highlighting = 0
+let g:go_fmt_command = "goimports"
+
+let g:syntastic_enable_signs = 1
+let g:syntastic_enable_balloons = 1
+let g:syntastic_enable_highlighting = 1
 
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:deoplete#enable_at_startup = 1
 " Python settings
 let python_highlight_all=1
 syntax on
 " Fix backspace
+set background=dark
 set backspace=2
-if has('gui_running')
-  set background=dark
-  colorscheme solarized
-else
-  colorscheme solarized
-"colorscheme zenburn
-endif
+colorscheme solarized
 
 " Switch between Solarized themes
 call togglebg#map("<F5>")
 
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 set nu
 set clipboard=unnamed
 set splitbelow
 set splitright
 let g:solarized_termcolors=256
 
+let g:python_host_prog = '/usr/bin/python'
+
+" Speed up python
+let g:python_host_skip_check = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
