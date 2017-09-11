@@ -1,0 +1,11 @@
+[user]
+	 name = Gen1us2k
+	 email = minkin.andrew@gmail.com
+[push]
+	 default = simple
+[url "git@github.com:"]
+	 insteadOf = https://github.com/
+[core]
+	 excludesfile = /Users/gen1us2k/.gitignore_global
+[url "git@gitlab.com:"]
+	 insteadOf = https://gitlab.com/
